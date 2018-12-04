@@ -1,0 +1,12 @@
+$(function(){
+	$('#task_help').click(function(){
+		$('#modal_help').show();
+	})
+	$('.close').click(function(){
+		$('#modal_help').hide();
+		$('#modal_apply').hide();
+	})
+	$('#task_apply').click(function(){
+		$('#modal_apply').show();
+	})
+})

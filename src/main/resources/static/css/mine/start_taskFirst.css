@@ -1,0 +1,61 @@
+.main{
+	width: 100%;
+}
+.awards_show{
+	width: 100%;
+	text-align: center;
+	margin-top: .7rem;
+}
+.quest_rewards{
+	font-size: .3rem;
+	color: #333;
+}
+.quest_rewards i{
+	color: #fd4848;
+}
+.time_remaining{
+	color: #999;
+	font-size: .24rem;
+	margin-left: .14rem;
+}
+.step{
+	width: 100%;
+	padding: 0 .26rem;
+	margin-top: .62rem;
+}
+.step_title{
+	font-size: .3rem;
+	color: #333;
+}
+.step button{
+	width: 2.4rem;
+	height: .66rem;
+	text-align: center;
+	line-height: .66rem;
+	background: #333;
+	color: #fff;
+	font-size: .28rem;
+	margin-left: .24rem;
+	border-radius: .08rem;
+}
+.step_cont{
+	font-size: .22rem;
+	color: #999;
+	margin-top: .42rem;
+	line-height: .4rem;
+}
+.main_middle{
+	width: 100%;
+	margin-top: 6.38rem;
+	text-align: center;
+}
+.main_middle button{
+	width: 6.9rem;
+	height: .88rem;
+	text-align: center;
+	line-height: .88rem;
+	background: #333;
+	color: #fff;
+	border-radius: .08rem;
+	font-size: .3rem;
+}

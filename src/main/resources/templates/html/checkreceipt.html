@@ -1,0 +1,83 @@
+<!--<!DOCTYPE html>-->
+<html xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="/assets/css/common.css" />
+    <link rel="stylesheet" href="/assets/css/header_common.css" />
+    <link rel="stylesheet" href="/css/receipt/checkreceipt.css" />
+    <link rel="stylesheet" href="/assets/layer_mobile/need/layer.css" />
+    <script type="text/javascript" src="/assets/js/global_variable.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="/assets/js/font-size.js"></script>
+    <script type="text/javascript" src="/assets/js/jsonselect.js"></script>
+    <title>趣点</title>
+</head>
+<body style="background:#fff;">
+<div class="main">
+    <div class="main_bot">
+        <!--<div class="wx_sum">
+           &lt;!&ndash; <p>
+                <input type="text" id="demo1" placeholder="请输入“小票号”进行查询" value="" />
+            </p>
+            <button type="button" id="query">查询</button>&ndash;&gt;
+            <a href="">热度</a>
+            <a href="">时间</a>
+            <a href="">审核</a>
+        </div>-->
+    </div>
+
+    <!-- 查询记录时已有的历史记录 -->
+    <diV class="exist">
+        <div class="discountgoods_title">
+            <ul>
+                <li id="home" class="salesHome">热点趣事</li>
+                <li id="min" class="salesMin">我的趣事</li>
+                <li id="check" class="salesCheck">我来审核</li>
+                <li id="center" class="salesCenter">个人中心</li>
+            </ul>
+        </div>
+        <!--<div class="kong"></div>-->
+        <!-- 没有查询记录时显示的内容 -->
+        <div class="without">
+            <p class="wit_condition">还没有趣事要审核哦</p>
+            <p class="wit_service">赶快去发表一些趣事吧。。。</p>
+        </div>
+        <!-- 查询的列表 -->
+        <div class="withdrawal_record">
+            <ul>
+            </ul>
+        </div>
+
+    </diV>
+    <div class="record_frame">
+
+    </div>
+</div>
+<!-- 弹框 -->
+<!--<div class="warm" style="display: none;">
+    <div class="warm_title">
+        <h4>提示</h4>
+        <p>该小票未被上传</p>
+    </div>
+    <div class="warm_choose">
+        <a class="warm_cancel">取消</a>
+        <a class="warm_login" href="toUploadReceipts.jsp">上传小票</a>
+    </div>
+</div>-->
+</body>
+<script type="text/javascript" src="/js/receipt/checkreceipt.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var sessionId = [[${sessionId}]];
+    /*]]>*/
+</script>
+</html>
