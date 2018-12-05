@@ -32,6 +32,11 @@ public class WalletEntity {
     @Column(name = "edit_time",columnDefinition = "varchar(50)")
     private String editTime;
 
+    @Column(name = "wx_account")
+    private String wxAccount;
+    @Column(name = "real_name")
+    private String realName;
+
     public int getId() {
         return id;
     }
@@ -94,5 +99,21 @@ public class WalletEntity {
 
     public void setBalance(int balance) {
         this.balance = balance;
+    }
+
+    public String getWxAccount() {
+        return wxAccount;
+    }
+
+    public void setWxAccount(String wxAccount) {
+        this.wxAccount = wxAccount;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

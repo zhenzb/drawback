@@ -49,8 +49,8 @@ public class CommentAction {
         }
         UserEntity user = UserSession.getUser(sessionId);
         CommentEntity commentEntity = commentService.saveComment(articleId, comment,user.getId());
-        List<ArticleEntity> articleDetaile = articleService.findArticleDetaile(Integer.valueOf(articleId));
-        ArticleEntity articleEntity = articleDetaile.get(0);
+        List<ViewInfo> viewInfo = articleService.findArticleDetaile(Integer.valueOf(articleId));
+        ArticleEntity articleEntity = viewInfo.get(0).getArticleEntity();
         WalletEntity userWallet = walletService.getUserWallet(articleEntity.getUserId());
         int money = userWallet.getMoney()+10;
         int totalMoney = userWallet.getTotalMoney()+10;

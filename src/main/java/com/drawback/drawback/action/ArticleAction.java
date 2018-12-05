@@ -1,5 +1,7 @@
 package com.drawback.drawback.action;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.drawback.drawback.commom.MySessionContext;
 import com.drawback.drawback.commom.ResultCommon;
 import com.drawback.drawback.commom.UploadImageCommon;
@@ -8,6 +10,7 @@ import com.drawback.drawback.model.UserEntity;
 import com.drawback.drawback.model.WalletEntity;
 import com.drawback.drawback.service.ArticleService;
 import com.drawback.drawback.service.WalletService;
+import com.drawback.drawback.utils.HttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,12 +46,15 @@ public class ArticleAction {
     @Autowired
     WalletService walletService;
     @RequestMapping(value = "/getArticle",method = RequestMethod.GET)
-    public String getArticle(HttpServletResponse response,String status){
+    public String getArticle(HttpServletResponse response,String status,String order){
         response.setHeader("Access-Control-Allow-Origin", "*");
         ResultCommon resultCommon = new ResultCommon();
         String result="";
         try {
-            List articleList = articleService.getArticleList(Integer.valueOf(status));
+            if(null == order){
+                order = "0";
+            }
+            List articleList = articleService.getArticleList(Integer.valueOf(status),Integer.valueOf(order));
             result = resultCommon.success(articleList);
         }catch (Exception e){
             e.printStackTrace();
@@ -135,6 +144,28 @@ public class ArticleAction {
         }
         articleService.articleSave(article,img,user.getId());
         return resultCommon.success("0");
+    }
+
+    @RequestMapping(value = "/getJokeAPI",method = RequestMethod.GET)
+    public void getJokeAPI(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date=new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        date = calendar.getTime();
+        long time = date.getTime();
+        System.out.println(sdf.format(time));
+        String url = "https://api.avatardata.cn/Joke/QueryJokeByTime?key=4a8cf76b6df04f0bad8394b7812550c3&page=2&sort=asc&time=TIMESTAMP";
+        url = url.replace("TIMESTAMP",String.valueOf(time).substring(0,10));
+        JSONObject jokeData = HttpUtils.getData(url);
+        JSONArray result = jokeData.getJSONArray("result");
+        for (int i=0;i<result.size();i++){
+            JSONObject jsonObject = result.getJSONObject(i);
+            String content = jsonObject.getString("content");
+            articleService.articleSave(content,null,10);
+        }
+
     }
 
 }

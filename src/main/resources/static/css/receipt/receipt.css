@@ -178,6 +178,15 @@ img{
     width: 100%;
     background: #fff;
 }
+.sort{
+    margin-left: .26rem;
+    width: 1rem;
+    height: .5rem;
+    background: transparent;
+    font-size: 0.3rem;
+    /*border: .01rem solid;*/
+    border-radius: .08rem;
+}
 .withdrawal_record{
     margin-top: 1rem;
 }
@@ -188,6 +197,7 @@ img{
 .withdrawal_record ul{
     width: 100%;
     height: auto;
+    margin-top: .15rem;
 }
 .withdrawal_record ul .receipt_li{
     width: 100%;

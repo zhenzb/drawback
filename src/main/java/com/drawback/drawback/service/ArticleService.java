@@ -22,8 +22,14 @@ public class ArticleService {
     @Autowired
     private ArticleJPA articleJPA;
 
-    public List getArticleList(int status){
-        List<ViewInfo> articleList = articleJPA.findArticleEntities(status);
+    public List getArticleList(int status,int order){
+        List<ViewInfo> articleList = null;
+        if(0 == order || 1 == order){
+            articleList = articleJPA.findArticleEntities(status);
+        }else {
+            articleList = articleJPA.findArticleEntitiesByRedu(status);
+        }
+
         return articleList;
     }
     public List findArticleDetaile(int articleId){
@@ -32,7 +38,7 @@ public class ArticleService {
     }
 
     public List getArticleByUser(int userId){
-        List articleList = articleJPA.findArticleEntitiesByStatusIsAndUserIdIsOrderByIdDesc(1,userId);
+        List articleList = articleJPA.findArticleEntitiesByStatusIsAndUserIdIsOrderByIdDesc(userId);
         return articleList;
     }
 
@@ -56,7 +62,7 @@ public class ArticleService {
         articleEntity.setEditTime(DateUtils.getTime());
         articleEntity.setFunny(0);
         articleEntity.setImg(img);
-        articleEntity.setStatus(0);
+        articleEntity.setStatus(1);
         articleEntity.setUserId(userId);
         articleEntity.setTitle("");
         return articleJPA.save(articleEntity);

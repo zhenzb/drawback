@@ -17,10 +17,7 @@ $(function(){
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
-            receipts_order: '',
-            status:1,
             sessionId:sessionId
-            //url_type:'receipts'
         },
         success: function(data) {
             var depositsHistory =data.result;
@@ -33,12 +30,25 @@ $(function(){
                          redundantHtml += '<img src="'+depositsHistory[i].userEntity.headImage+'" class="title_img" />';
                          redundantHtml += '<span>'+depositsHistory[i].userEntity.userName+'</span>';
                          redundantHtml += '</p>';
-                         redundantHtml += '<p class="record_plan"><em>'+depositsHistory[i].articleEntity.content+'</em>';
+                         redundantHtml += '<p class="record_plan" data-id='+depositsHistory[i].articleEntity.id+'><em>'+depositsHistory[i].articleEntity.content+'</em>';
                         if(depositsHistory[i].articleEntity.img != "" && depositsHistory[i].articleEntity.img !=undefined){ // 图文
                             redundantHtml += '<img class="aimg" src="'+depositsHistory[i].articleEntity.img+'">';
                             }
                          redundantHtml += '<p class="record_sum1"><span >'+depositsHistory[i].articleEntity.createTime+'</span></p>';
-                         redundantHtml += '<p class="record_sum"><span><span id="funnyspan'+i+'">'+depositsHistory[i].articleEntity.funny+'</span><i title="搞笑"class="smile" onclick="simle('+depositsHistory[i].articleEntity.id+','+i+')"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><em>'+depositsHistory[i].articleEntity.comment+'</em><i data-number='+i+' data-id='+depositsHistory[i].articleEntity.id+' title="评论" class="comment"></i></span></p>';
+                        if(depositsHistory[i].articleEntity.status == "0"){
+                            redundantHtml += '<span class="record_sum" style="overflow: hidden;"><span style="float: left"><span><em id="funnyspan'+i+'">'+depositsHistory[i].articleEntity.funny+'</em><i title="搞笑"class="smile" onclick="simle('+depositsHistory[i].articleEntity.id+','+i+')"></i>' +
+                                '</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><em>'+depositsHistory[i].articleEntity.comment+'</em><i data-number='+i+' data-id='+depositsHistory[i].articleEntity.id+' title="评论" class="comment"></i></span></span>' +
+                                '<span style="float: right"><font color="green">已通过</font></span></p>';
+                        }else if(depositsHistory[i].articleEntity.status == "1"){
+                            redundantHtml += '<span class="record_sum" style="overflow: hidden;"><span style="float: left"><span><em id="funnyspan'+i+'">'+depositsHistory[i].articleEntity.funny+'</em><i title="搞笑"class="smile" onclick="simle('+depositsHistory[i].articleEntity.id+','+i+')"></i>' +
+                                '</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><em>'+depositsHistory[i].articleEntity.comment+'</em><i data-number='+i+' data-id='+depositsHistory[i].articleEntity.id+' title="评论" class="comment"></i></span></span>' +
+                                '<span style="float: right"><font color="#ffc09f">审核中</font></span></p>';
+                        }else if(depositsHistory[i].articleEntity.status == "2"){
+                            redundantHtml += '<span class="record_sum" style="overflow: hidden;"><span style="float: left"><span><em id="funnyspan'+i+'">'+depositsHistory[i].articleEntity.funny+'</em><i title="搞笑"class="smile" onclick="simle('+depositsHistory[i].articleEntity.id+','+i+')"></i>' +
+                                '</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><em>'+depositsHistory[i].articleEntity.comment+'</em><i data-number='+i+' data-id='+depositsHistory[i].articleEntity.id+' title="评论" class="comment"></i></span></span>' +
+                                '<span style="float: right"><font color="red">已拒绝</font></span></p>';
+                        }
+
                          redundantHtml += '</div>';
                          redundantHtml += '<div class="record_img">';
                          redundantHtml += '</div>';
@@ -135,6 +145,24 @@ $("#publish").click(function () {
     var img_file = document.getElementById("image");
     var fileObject = img_file.files[0];
     var article = $(".commenClass").val();
+    if(fileObject==undefined && article==''){
+        layer.open({
+            content: '说点什么在发表吧...',
+            skin: 'msg',
+            time: 2
+        });
+        return;
+    }
+    var regu = "^[ ]+$";
+    var re = new RegExp(regu);
+    if(fileObject==undefined && re.test(article)){
+        layer.open({
+            content: '说点什么在发表吧...',
+            skin: 'msg',
+            time: 2
+        });
+        return;
+    }
     if(fileObject !=undefined){
         if (fileObject.size > 1024 * 1024) {//大于1M，进行压缩上传
             photoCompress(fileObject, {
@@ -157,7 +185,7 @@ $("#publish").click(function () {
                         var v = data.result;
                         if(v==0){
                             layer.open({
-                                content: '发表成功',
+                                content: '发表成功,赶快让小伙伴帮你审核通过吧',
                                 skin: 'msg',
                                 time: 3
                             });
@@ -187,7 +215,7 @@ $("#publish").click(function () {
                     var v = data.result;
                     if(v==0){
                         layer.open({
-                            content: '发表成功',
+                            content: '发表成功,赶快让小伙伴帮你审核通过吧',
                             skin: 'msg',
                             time: 2
                         });
@@ -218,7 +246,7 @@ $("#publish").click(function () {
                 var v = data.result;
                 if(v==0){
                     layer.open({
-                        content: '发表成功',
+                        content: '发表成功,赶快让小伙伴帮你审核通过吧',
                         skin: 'msg',
                         time: 2
                     });

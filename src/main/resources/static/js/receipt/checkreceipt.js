@@ -17,7 +17,7 @@ $(function(){
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
-            status:0
+            status:1
         },
         success: function(data) {
             var depositsHistory =data.result;
@@ -137,7 +137,7 @@ function agree(articleId,i) {
         dataType: "json", //指定服务器返回的数据类型
         data: {
             articleId:articleId,
-            status:1,
+            status:0,
             sessionId:sessionId
         },
         success:function (data) {
@@ -165,17 +165,14 @@ function refuse(id) {
             sessionId:sessionId
         },
         success:function (data) {
-            var v = data.result;
-            if(v==0){
                 layer.open({
-                    content: '评论已拒绝',
+                    content: '已拒绝',
                     skin: 'msg',
                     time: 2
                 });
                 setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
                     window.location.reload();//页面刷新
                 },2000);
-            }
         }
     })
 }

@@ -15,19 +15,18 @@ import java.util.List;
 
 @Repository
 public interface ArticleJPA extends JpaRepository<ArticleEntity,Integer>,JpaSpecificationExecutor<ArticleEntity>,CrudRepository<ArticleEntity,Integer>,Serializable{
-    /**
-     * home interface
-     * @param status
-     * @return
-     */
+    //按时间查询
     @Query(value = "select new com.drawback.drawback.model.ViewInfo(u,a) from ArticleEntity a LEFT JOIN com.drawback.drawback.model.UserEntity u on a.userId = u.id where a.status=?1 order by a.id Desc")
     List<ViewInfo> findArticleEntities(int status);
+    //按热度查询
+    @Query(value = "select new com.drawback.drawback.model.ViewInfo(u,a) from ArticleEntity a LEFT JOIN com.drawback.drawback.model.UserEntity u on a.userId = u.id where a.status=?1 order by a.comment Desc")
+    List<ViewInfo> findArticleEntitiesByRedu(int status);
 
     @Query(value = "select new com.drawback.drawback.model.ViewInfo(u,a) from ArticleEntity a LEFT JOIN com.drawback.drawback.model.UserEntity u on a.userId = u.id where a.id=?1")
     List<ViewInfo> findArticleEntityDetaile(int articleId);
 
-    @Query(value = "select new com.drawback.drawback.model.ViewInfo(u,a) from ArticleEntity a LEFT JOIN com.drawback.drawback.model.UserEntity u on a.userId = u.id where a.status=?1 and a.userId=?2 order by a.id Desc")
-    List findArticleEntitiesByStatusIsAndUserIdIsOrderByIdDesc(int status,int userId);
+    @Query(value = "select new com.drawback.drawback.model.ViewInfo(u,a) from ArticleEntity a LEFT JOIN com.drawback.drawback.model.UserEntity u on a.userId = u.id where a.userId=?1 order by a.status Desc")
+    List findArticleEntitiesByStatusIsAndUserIdIsOrderByIdDesc(int userId);
 
     ArticleEntity findArticleEntitiesById(int id);
     @Modifying

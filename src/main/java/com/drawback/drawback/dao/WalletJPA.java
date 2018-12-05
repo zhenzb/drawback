@@ -20,6 +20,6 @@ public interface WalletJPA extends JpaRepository<WalletEntity,Integer>,JpaSpecif
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE wallet set money=?1,total_money=?2 where id=?3",nativeQuery = true)
+    @Query(value = "UPDATE wallet set money=?1,total_money=?2 where user_id=?3",nativeQuery = true)
     int updateUserWallet(int money,int totalName,int id);
 }
