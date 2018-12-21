@@ -13,7 +13,7 @@ window.jsel = JSONSelect;
 $(function(){
     // 历史记录
     $.ajax({
-        url:  domain_name_url + "/article/getArticle",
+        url:  domain_name_url + "/drawback/article/getArticle",
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -35,6 +35,9 @@ $(function(){
                          redundantHtml += '<p class="record_plan"><em>'+depositsHistory[i].articleEntity.content+'</em>';
                          if(depositsHistory[i].articleEntity.img != "" && depositsHistory[i].articleEntity.img !=undefined){ // 图文
                                 redundantHtml += '<img class="aimg" src="'+depositsHistory[i].articleEntity.img+'">';
+                            }
+                        if(depositsHistory[i].articleEntity.video != "" && depositsHistory[i].articleEntity.video !=undefined){ // 视频
+                        redundantHtml += '<video class="aimg" controls><source src="'+depositsHistory[i].articleEntity.video+'" type="video/mp4"></video>';
                             }
                          redundantHtml += '<p class="record_sum1"><span >'+depositsHistory[i].articleEntity.createTime+'</span></p>';
                          redundantHtml += '<p class="record_sum"><span><span id="funnyspan'+i+'">通过</span><i title="通过"class="smile" onclick="agree('+depositsHistory[i].articleEntity.id+','+i+')"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><em>拒绝</em><i data-number='+i+' data-id='+depositsHistory[i].articleEntity.id+' title="拒绝" class="comment" onclick="refuse('+depositsHistory[i].articleEntity.id+','+i+')"></i></span></p>';
@@ -132,7 +135,7 @@ $(function(){
 
 function agree(articleId,i) {
     $.ajax({
-        url: domain_name_url + "/article/updateArticleStatus",
+        url: domain_name_url + "/drawback/article/updateArticleStatus",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -156,7 +159,7 @@ function agree(articleId,i) {
 
 function refuse(id) {
     $.ajax({
-        url: domain_name_url + "/article/updateArticleStatus",
+        url: domain_name_url + "/drawback/article/updateArticleStatus",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -179,16 +182,16 @@ function refuse(id) {
 
 
 $("#home").click(function () {
-    window.location.href=domain_name_url + "/main?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/main?sessionId="+sessionId;
 });
 $("#min").click(function () {
-    window.location.href=domain_name_url + "/min?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/min?sessionId="+sessionId;
 });
 
 $("#center").click(function () {
-    window.location.href=domain_name_url + "/goCenter?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/goCenter?sessionId="+sessionId;
 });
 
 $("#check").click(function () {
-    window.location.href=domain_name_url + "/checkReceipt?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/checkReceipt?sessionId="+sessionId;
 });

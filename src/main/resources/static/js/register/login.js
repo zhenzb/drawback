@@ -107,9 +107,9 @@
 	$('.register_cond p img').click(function(){
 		var test1 = document.getElementById('test1');
         if(test1.src.indexOf('registernoc') >= 0){
-            test1.src="../image/mine/registerc.png";
+            test1.src="/drawback/image/mine/registerc.png";
         }else{
-            test1.src="../image/mine/registernoc.png";
+            test1.src="/drawback/image/mine/registernoc.png";
         }
 		
 	});
@@ -143,7 +143,7 @@
 			return false;
         }*/
 		$.ajax({
-			url: domain_name_url + "/user/login",
+			url: domain_name_url + "/drawback/user/login",
 			type: "POST",
 			dataType: "json", //指定服务器返回的数据类型
 			data: {
@@ -161,7 +161,7 @@
 					});
 					 setTimeout(function(){jump();}, 1000);
                     function jump() {
-                        location.href=domain_name_url+'/main?sessionId='+sessionId;
+                        location.href=domain_name_url+'/drawback/main?sessionId='+sessionId;
                     }
 				} else if(da_success == 1){//短信验证码错误
 					layer.open({
@@ -180,6 +180,6 @@
 });
 
 $(".mian_btn_register").click(function () {
-	window.location.href=domain_name_url+"/register";
+	window.location.href=domain_name_url+"/drawback/register";
 });
 

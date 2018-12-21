@@ -103,7 +103,8 @@ public class ArticleAction {
     }
 
     @RequestMapping(value = "/updateArticleFunny",method = RequestMethod.POST)
-    public String updateArticleFunny(String articleId,String sessionId){
+    public String updateArticleFunny(String articleId,String sessionId,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         ResultCommon resultCommon = new ResultCommon();
         int funny = articleService.updateArticleFunny(Integer.valueOf(articleId));
         System.out.println("ID为:"+articleId+" 获得 "+funny+" 赞");
@@ -118,7 +119,8 @@ public class ArticleAction {
      * @return
      */
     @RequestMapping(value = "/updateArticleStatus",method = RequestMethod.POST)
-    public String updateArticleStatus(String articleId,String sessionId,String status){
+    public String updateArticleStatus(String articleId,String sessionId,String status,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         ResultCommon resultCommon = new ResultCommon();
         UserEntity user = UserSession.getUser(sessionId);
         int i = articleService.updateArticleStatus(Integer.valueOf(articleId),Integer.valueOf(status));
@@ -137,12 +139,13 @@ public class ArticleAction {
         String article = map.get("article");
         String sessionId = map.get("sessionId");
         String img = map.get("img");
+        String video = map.get("video");
         HttpSession session = MySessionContext.getSession(sessionId);
         UserEntity user = null;
         if (null !=session){
             user = (UserEntity)session.getAttribute("user");
         }
-        articleService.articleSave(article,img,user.getId());
+        articleService.articleSave(article,img,video,user.getId());
         return resultCommon.success("0");
     }
 
@@ -152,7 +155,7 @@ public class ArticleAction {
         Date date=new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        calendar.add(Calendar.DAY_OF_MONTH, -363);
         date = calendar.getTime();
         long time = date.getTime();
         System.out.println(sdf.format(time));
@@ -163,7 +166,7 @@ public class ArticleAction {
         for (int i=0;i<result.size();i++){
             JSONObject jsonObject = result.getJSONObject(i);
             String content = jsonObject.getString("content");
-            articleService.articleSave(content,null,10);
+            articleService.articleSave(content,null,null,10);
         }
 
     }

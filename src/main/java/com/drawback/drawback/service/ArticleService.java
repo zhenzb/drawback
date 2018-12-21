@@ -55,13 +55,14 @@ public class ArticleService {
         return i;
     }
 
-    public ArticleEntity articleSave(String article,String img,int userId){
+    public ArticleEntity articleSave(String article,String img,String video,int userId){
         ArticleEntity articleEntity = new ArticleEntity();
         articleEntity.setContent(article);
         articleEntity.setCreateTime(DateUtils.getTime());
         articleEntity.setEditTime(DateUtils.getTime());
         articleEntity.setFunny(0);
         articleEntity.setImg(img);
+        articleEntity.setVideo(video);
         articleEntity.setStatus(1);
         articleEntity.setUserId(userId);
         articleEntity.setTitle("");

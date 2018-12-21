@@ -25,6 +25,8 @@ public class ArticleEntity implements Serializable{
     private String content;
     @Column(name = "img")
     private String img;
+    @Column(name = "video")
+    private String video;
     @Column(name = "user_id",columnDefinition = "int(20)")
     private int userId;
     @Column(name="create_time")
@@ -116,6 +118,14 @@ public class ArticleEntity implements Serializable{
 
     public void setComment(int comment) {
         this.comment = comment;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 
 

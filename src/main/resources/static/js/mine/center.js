@@ -32,7 +32,7 @@ clipboard.on('error', function(e) {
 window.onload =function(){
     $.ajax({
         type: "get",
-        url: domain_name_url + "/user/centerUserInfo?sessionId="+sessionId,
+        url: domain_name_url + "/drawback/user/centerUserInfo?sessionId="+sessionId,
         /*data: {"openid":openid},*/
         contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
         cache: false,
@@ -67,16 +67,16 @@ window.onload =function(){
 };
 
 $("#wallet").click(function () {
-    window.location.href=domain_name_url + "/wallet?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/wallet?sessionId="+sessionId;
 });
 $("#home").click(function () {
-    window.location.href=domain_name_url + "/main?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/main?sessionId="+sessionId;
 });
 $("#min").click(function () {
-    window.location.href=domain_name_url + "/min?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/min?sessionId="+sessionId;
 });
 $("#check").click(function () {
-    window.location.href=domain_name_url + "/checkReceipt?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/checkReceipt?sessionId="+sessionId;
 });
 
 $("#headImg").click(function () {
@@ -96,7 +96,7 @@ function uploadHeadImg() {
             formData.append("file", bl, "file_" + Date.parse(new Date()) + ".jpg"); // 文件对象
             formData.append("sessionId",sessionId);
             $.ajax({
-                url: domain_name_url + "/user/uploadHeadImg",
+                url: domain_name_url + "/drawback/user/uploadHeadImg",
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -124,7 +124,7 @@ function uploadHeadImg() {
     } else {
         formData.append("file", fileObject);
         $.ajax({
-            url: domain_name_url + "/user/uploadHeadImg?sessionId="+sessionId,
+            url: domain_name_url + "/drawback/user/uploadHeadImg?sessionId="+sessionId,
             type: "POST",
             dataType: "json",
             data: formData,

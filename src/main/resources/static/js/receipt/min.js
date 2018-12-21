@@ -13,7 +13,7 @@ window.jsel = JSONSelect;
 $(function(){
     // 历史记录
     $.ajax({
-        url:  domain_name_url + "/article/getArticleByUserId",
+        url:  domain_name_url + "/drawback/article/getArticleByUserId",
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -33,6 +33,9 @@ $(function(){
                          redundantHtml += '<p class="record_plan" data-id='+depositsHistory[i].articleEntity.id+'><em>'+depositsHistory[i].articleEntity.content+'</em>';
                         if(depositsHistory[i].articleEntity.img != "" && depositsHistory[i].articleEntity.img !=undefined){ // 图文
                             redundantHtml += '<img class="aimg" src="'+depositsHistory[i].articleEntity.img+'">';
+                            }
+                        if(depositsHistory[i].articleEntity.video != "" && depositsHistory[i].articleEntity.video !=undefined){ // 视频
+                        redundantHtml += '<video class="aimg" controls><source src="'+depositsHistory[i].articleEntity.video+'" type="video/mp4"></video>';
                             }
                          redundantHtml += '<p class="record_sum1"><span >'+depositsHistory[i].articleEntity.createTime+'</span></p>';
                         if(depositsHistory[i].articleEntity.status == "0"){
@@ -62,7 +65,7 @@ $(function(){
                 $('.comment').click(function(){
                     var id = $(this).data('id');//id
                     $.ajax({
-                        url: domain_name_url + "/comment/getComment",
+                        url: domain_name_url + "/drawback/comment/getComment",
                         type: "GET",
                         dataType: "json", //指定服务器返回的数据类型
                         data: {
@@ -111,7 +114,7 @@ $(function(){
 
                 $('.record_plan').click(function(){
                     var id = $(this).data('id');//id
-                    window.location.href=domain_name_url + "/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
+                    window.location.href=domain_name_url + "/drawback/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
                 })
             }else{
                 $('.without').css({display: 'block'});
@@ -126,7 +129,7 @@ $(function(){
 
 function simle(articleId,i) {
     $.ajax({
-        url: domain_name_url + "/article/updateArticleFunny",
+        url: domain_name_url + "/drawback/article/updateArticleFunny",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -143,9 +146,11 @@ function simle(articleId,i) {
 $("#publish").click(function () {
     var formData = new FormData();
     var img_file = document.getElementById("image");
+    var video_file = "";//document.getElementById("video");
     var fileObject = img_file.files[0];
+    var videoObject = video_file.files[0];
     var article = $(".commenClass").val();
-    if(fileObject==undefined && article==''){
+    if (fileObject == undefined && article == '' && videoObject == undefined) {
         layer.open({
             content: '说点什么在发表吧...',
             skin: 'msg',
@@ -155,7 +160,7 @@ $("#publish").click(function () {
     }
     var regu = "^[ ]+$";
     var re = new RegExp(regu);
-    if(fileObject==undefined && re.test(article)){
+    if (fileObject == undefined && re.test(article) && videoObject == undefined) {
         layer.open({
             content: '说点什么在发表吧...',
             skin: 'msg',
@@ -163,18 +168,50 @@ $("#publish").click(function () {
         });
         return;
     }
-    if(fileObject !=undefined){
-        if (fileObject.size > 1024 * 1024) {//大于1M，进行压缩上传
-            photoCompress(fileObject, {
-                quality: 0.8
-            }, function (base64Codes) {
-                //console.log("压缩后：" + base.length / 1024 + " " + base);
-                var bl = convertBase64UrlToBlob(base64Codes);
-                formData.append("file", bl, "file_" + Date.parse(new Date()) + ".jpg"); // 文件对象
+    if (videoObject == undefined) {
+
+        if (fileObject != undefined) {
+            if (fileObject.size > 1024 * 1024) {//大于1M，进行压缩上传
+                photoCompress(fileObject, {
+                    quality: 0.8
+                }, function (base64Codes) {
+                    //console.log("压缩后：" + base.length / 1024 + " " + base);
+                    var bl = convertBase64UrlToBlob(base64Codes);
+                    formData.append("file", bl, "file_" + Date.parse(new Date()) + ".jpg"); // 文件对象
+                    formData.append("article", article);
+                    formData.append("sessionId", sessionId);
+                    $.ajax({
+                        url: domain_name_url + "/drawback/article/saveArticle",
+                        type: "POST",
+                        dataType: "json",
+                        data: formData,
+                        processData: false,
+                        async: false,
+                        contentType: false,
+                        success: function (data) {
+                            var v = data.result;
+                            if (v == 0) {
+                                layer.open({
+                                    content: '发表成功,赶快让小伙伴帮你审核通过吧',
+                                    skin: 'msg',
+                                    time: 3
+                                });
+                            }
+                            setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
+                                window.location.reload();//页面刷新
+                            }, 2000);
+                        },
+                        error: function (data) {
+                            console.log("order", data.result)
+                        }
+                    });
+                });
+            } else {
+                formData.append("file", fileObject);
                 formData.append("article", article);
-                formData.append("sessionId",sessionId);
+                formData.append("sessionId", sessionId);
                 $.ajax({
-                    url: domain_name_url + "/article/saveArticle",
+                    url: domain_name_url + "/drawback/article/saveArticle",
                     type: "POST",
                     dataType: "json",
                     data: formData,
@@ -183,28 +220,29 @@ $("#publish").click(function () {
                     contentType: false,
                     success: function (data) {
                         var v = data.result;
-                        if(v==0){
+                        if (v == 0) {
                             layer.open({
                                 content: '发表成功,赶快让小伙伴帮你审核通过吧',
                                 skin: 'msg',
-                                time: 3
+                                time: 2
                             });
                         }
-                        setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                        setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
                             window.location.reload();//页面刷新
-                        },2000);
+                        }, 2000);
+
                     },
                     error: function (data) {
                         console.log("order", data.result)
                     }
                 });
-            });
+            }
+
         } else {
-            formData.append("file", fileObject);
             formData.append("article", article);
-            formData.append("sessionId",sessionId);
+            formData.append("sessionId", sessionId);
             $.ajax({
-                url: domain_name_url + "/article/saveArticle",
+                url: domain_name_url + "/drawback/article/saveArticle",
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -213,29 +251,30 @@ $("#publish").click(function () {
                 contentType: false,
                 success: function (data) {
                     var v = data.result;
-                    if(v==0){
+                    if (v == 0) {
                         layer.open({
                             content: '发表成功,赶快让小伙伴帮你审核通过吧',
                             skin: 'msg',
                             time: 2
                         });
                     }
-                    setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                    setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
                         window.location.reload();//页面刷新
-                    },2000);
+                    }, 2000);
 
                 },
                 error: function (data) {
                     console.log("order", data.result)
                 }
             });
-        }
 
+        }
     }else {
+        formData.append("videoFile", videoObject);
         formData.append("article", article);
-        formData.append("sessionId",sessionId);
+        formData.append("sessionId", sessionId);
         $.ajax({
-            url: domain_name_url + "/article/saveArticle",
+            url: domain_name_url + "/drawback/article/saveArticle",
             type: "POST",
             dataType: "json",
             data: formData,
@@ -244,45 +283,48 @@ $("#publish").click(function () {
             contentType: false,
             success: function (data) {
                 var v = data.result;
-                if(v==0){
+                if (v == 0) {
                     layer.open({
                         content: '发表成功,赶快让小伙伴帮你审核通过吧',
                         skin: 'msg',
                         time: 2
                     });
                 }
-                setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
                     window.location.reload();//页面刷新
-                },2000);
+                }, 2000);
 
             },
             error: function (data) {
                 console.log("order", data.result)
             }
         });
-
     }
 
 });
 /*跳转*/
 $("#home").click(function () {
-    window.location.href=domain_name_url + "/main?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/main?sessionId="+sessionId;
 });
 $("#min").click(function () {
-    window.location.href=domain_name_url + "/min?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/min?sessionId="+sessionId;
 });
 
 $("#center").click(function () {
-    window.location.href=domain_name_url + "/goCenter?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/goCenter?sessionId="+sessionId;
 });
 
 $("#check").click(function () {
-    window.location.href=domain_name_url + "/checkReceipt?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/checkReceipt?sessionId="+sessionId;
 });
 
 /*上传图片*/
 $("#imgID").click(function () {
     $("#image").click();
+});
+/*上传视频*/
+$("#videoID").click(function () {
+    $("#video").click();
 });
 
 /*图片预览*/
@@ -322,6 +364,51 @@ function setImagePreview() {
             $('#btn').css({'background': '#b61c25', 'color': '#fff'});
         } catch (e) {
             alert("您上传的图片格式不正确，请重新选择!");
+            return false;
+        }
+        imgObjPreview.style.display = 'none';
+        document.selection.empty();
+    }
+    return true;
+}
+
+/*视频预览*/
+function setVideoPreview() {
+    //input
+    var docObj = document.getElementById("video");
+    //img
+    var imgObjPreview = document.getElementById("preview");
+    //div
+    var divs = document.getElementById("localImag");
+    //var add = document.getElementById("add");
+    if (docObj.files && docObj.files[0]) {
+        //火狐下，直接设img属性
+        imgObjPreview.style.display = 'block';
+        imgObjPreview.style.width = '1.8rem';
+        imgObjPreview.style.height = '1.8rem';
+        //imgObjPreview.src = docObj.files[0].getAsDataURL();
+        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+        imgObjPreview.src = "/drawback/image/video.png"//window.URL.createObjectURL(docObj.files[0]);
+        //add.style.display = "none";
+        $("#btn").removeAttr("disabled");
+        $('#btn').css({'background': '#b61c25', 'color': '#fff'});
+    } else {
+        //IE下，使用滤镜
+        docObj.select();
+        //var imgSrc = document.selection.createRange().text;
+        var localImagId = document.getElementById("localImag");
+        //必须设置初始大小
+        localImagId.style.width = "1.8rem";
+        localImagId.style.height = "1.8rem";
+        //图片异常的捕捉，防止用户修改后缀来伪造图片
+        try {
+            localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = "/image/video.png";
+            //add.style.display = "none";
+            $("#btn").removeAttr("disabled");
+            $('#btn').css({'background': '#b61c25', 'color': '#fff'});
+        } catch (e) {
+            alert("您上传的视频格式不正确，请重新选择!");
             return false;
         }
         imgObjPreview.style.display = 'none';
@@ -393,8 +480,7 @@ function convertBase64UrlToBlob(urlData){
 }
 
 $("#center").click(function () {
-    window.location.href=domain_name_url + "/goCenter?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/goCenter?sessionId="+sessionId;
 });
-
 
 

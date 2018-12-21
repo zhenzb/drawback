@@ -13,7 +13,7 @@ window.jsel = JSONSelect;
 $(function(){
     // 历史记录
     $.ajax({
-        url:  domain_name_url + "/article/getArticleDetaile",
+        url:  domain_name_url + "/drawback/article/getArticleDetaile",
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -49,7 +49,7 @@ $(function(){
                 $('.comment').click(function(){
                     var id = $(this).data('id');//id
                     $.ajax({
-                        url: domain_name_url + "/comment/getComment",
+                        url: domain_name_url + "/drawback/comment/getComment",
                         type: "GET",
                         dataType: "json", //指定服务器返回的数据类型
                         data: {
@@ -103,7 +103,7 @@ $(function(){
 
 function simle(articleId,i) {
     $.ajax({
-        url: domain_name_url + "/article/updateArticleFunny",
+        url: domain_name_url + "/drawback/article/updateArticleFunny",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -121,7 +121,7 @@ function simle(articleId,i) {
 function saveComment(id) {
     var comment = $(".commenClass").val();
     $.ajax({
-        url: domain_name_url + "/comment/saveComment",
+        url: domain_name_url + "/drawback/comment/saveComment",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -143,17 +143,17 @@ function saveComment(id) {
 }
 
 $("#home").click(function () {
-    window.location.href=domain_name_url + "/main?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/main?sessionId="+sessionId;
 });
 
 $("#min").click(function () {
-    window.location.href=domain_name_url + "/min?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/min?sessionId="+sessionId;
 });
 
 $("#center").click(function () {
-    window.location.href=domain_name_url + "/goCenter?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/goCenter?sessionId="+sessionId;
 });
 
 $("#check").click(function () {
-    window.location.href=domain_name_url + "/checkReceipt?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/checkReceipt?sessionId="+sessionId;
 });

@@ -65,7 +65,7 @@ public class UserAction {
     public String addNewUserOptimize(String phone,String code,String userName,String password,HttpServletRequest request,
                                      HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/upload/image/head.jpg";
+        String base = request.getScheme() + "://" + request.getServerName() + "/hestia/img/head.jpg";
         ResultCommon resultCommon = new ResultCommon();
         String verificationCode = RedisClient.hget("phone_verification_code", phone, "verification_code");
         if(verificationCode!=null && verificationCode.equals(code)) {

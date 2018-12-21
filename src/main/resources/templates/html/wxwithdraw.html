@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
-<script>
-    var userId = <%=userId%>
+<html xmlns:th="http://www.springframework.org/schema/jdbc">
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var sessionId = [[${sessionId}]];
+    /*]]>*/
 </script>
 <head>
     <meta charset="utf-8">
@@ -13,14 +15,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="msapplication-tap-highlight" content="no">
-    <link rel="stylesheet" href="../assets/css/common.css" />
-    <link rel="stylesheet" href="../assets/css/header_common.css" />
-    <link rel="stylesheet" href="../css/mine/wx_withdraw.css" />
-    <link rel="stylesheet" href="../assets/layer_mobile/need/layer.css" />
-    <script type="text/javascript" src="../assets/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="../assets/layer_mobile/layer.js"></script>
-    <script type="text/javascript" src="../assets/js/font-size.js"></script>
-    <script type="text/javascript" src="../assets/js/global_variable.js"></script>
+    <link rel="stylesheet" href="/drawback/assets/css/common.css" />
+    <link rel="stylesheet" href="/drawback/assets/css/header_common.css" />
+    <link rel="stylesheet" href="/drawback/css/mine/wx_withdraw.css" />
+    <link rel="stylesheet" href="/drawback/assets/layer_mobile/need/layer.css" />
+    <script type="text/javascript" src="/drawback/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/drawback/assets/layer_mobile/layer.js"></script>
+    <script type="text/javascript" src="/drawback/assets/js/font-size.js"></script>
+    <script type="text/javascript" src="/drawback/assets/js/global_variable.js"></script>
     <title>提现</title>
 </head>
 <body style="background:#fff;">
@@ -29,7 +31,7 @@
         <header>
             <div class="title_top">
                 <a href="withdraw.jsp" class="title_top_first">
-                    <img src="../image/mine/return.png" class="hea_img" />
+                    <img src="/drawback/image/mine/return.png" class="hea_img" />
                 </a>
                 <span class="title_top_center">微信提现</span>
                 <span style="float:right;margin-right:.26rem;font-size:.28rem;color:#666" onclick="window.location='history_withdraw.jsp'">明细</span>
@@ -50,7 +52,7 @@
         </div>
         <p class="wit_condition">*满五元可以提现,且可提现金额必须为5的倍数</p>
         <p class="wit_service">
-            <img src="../image/mine/service1.png" />
+            <img src="/drawback/image/mine/service1.png" />
             <a href="online_service.jsp">联系客服</a>
         </p>
     </div>
@@ -67,5 +69,5 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="../js/mine/wx_withdraw.js"></script>
+<script type="text/javascript" src="/drawback/js/mine/wx_withdraw.js"></script>
 </html>

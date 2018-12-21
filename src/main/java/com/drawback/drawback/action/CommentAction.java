@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -31,7 +32,8 @@ public class CommentAction {
     WalletService walletService;
 
     @RequestMapping(value = "/getComment",method = RequestMethod.GET)
-    public String findComment(String articleId){
+    public String findComment(String articleId, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         ResultCommon result = new ResultCommon();
         List<ViewInfo> comment = commentService.findComment(Integer.valueOf(articleId));
         if(comment.size()>0){
@@ -42,7 +44,8 @@ public class CommentAction {
     }
 
     @RequestMapping(value = "/saveComment",method = RequestMethod.POST)
-    public String saveComment(String articleId,String comment,String sessionId){
+    public String saveComment(String articleId,String comment,String sessionId,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         ResultCommon result = new ResultCommon();
         if(sessionId == null || "".equals(sessionId)){
             return result.faile("请登录后在评论");

@@ -91,7 +91,7 @@ function setImagePreview(avalue) {
             formData.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
             formData.append("openid",openid);
             $.ajax({
-                url: domain_name_url+"/receipts?method=uploadImg",
+                url: domain_name_url+"/drawback/receipts?method=uploadImg",
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -137,7 +137,7 @@ function setImagePreview(avalue) {
             formData.append("file", fileObject);
             formData.append("openid",openid);
         $.ajax({
-            url: domain_name_url+"/receipts?method=uploadImg",
+            url: domain_name_url+"/drawback/receipts?method=uploadImg",
             type: "POST",
             dataType: "json",
             data: formData,

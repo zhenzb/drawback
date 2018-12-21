@@ -12,7 +12,7 @@ $(function(){
     ticketInformationHtml +='<header>';
     ticketInformationHtml +='<div class="title_top">';
     ticketInformationHtml +='<a href="javascript:history.go(-1)" class="title_top_first">';
-    ticketInformationHtml +='<img src="../image/mine/return.png" class="hea_img" />';
+    ticketInformationHtml +='<img src="/drawback/image/mine/return.png" class="hea_img" />';
     ticketInformationHtml +='</a>';
     ticketInformationHtml +=' <span class="title_top_center">小票详情</span>';
     ticketInformationHtml +='</div>';

@@ -25,7 +25,7 @@ import java.io.IOException;
 public class MainAction {
 
     @RequestMapping(value="/main",method = RequestMethod.GET)
-    public ModelAndView main(ModelAndView modelAndView,HttpServletRequest request){
+    public ModelAndView home(ModelAndView modelAndView,HttpServletRequest request){
         String id = request.getParameter("sessionId");
         modelAndView.addObject("sessionId",id);
         modelAndView.setViewName("html/receipt");

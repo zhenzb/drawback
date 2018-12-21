@@ -1,6 +1,6 @@
 ﻿$(function(){
     $.ajax({
-        url: domain_name_url + "/wallet/getUserWallet",
+        url: domain_name_url + "/drawback/wallet/getUserWallet",
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -22,7 +22,7 @@
 });
 
 $(".first_a").click(function () {
-    window.location.href=domain_name_url + "/withdrawalRecorde?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/withdrawalRecorde?sessionId="+sessionId;
 });
 
 $("#wit_btn").click(function () {

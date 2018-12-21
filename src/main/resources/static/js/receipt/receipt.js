@@ -13,7 +13,7 @@ window.jsel = JSONSelect;
 $(function(){
     // 历史记录
     $.ajax({
-        url:  domain_name_url + "/article/getArticle",
+        url:  domain_name_url + "/drawback/article/getArticle",
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -36,6 +36,9 @@ $(function(){
                          if(depositsHistory[i].articleEntity.img != "" && depositsHistory[i].articleEntity.img !=undefined){ // 图文
                                 redundantHtml += '<img class="aimg" src="'+depositsHistory[i].articleEntity.img+'">';
                             }
+                         if(depositsHistory[i].articleEntity.video != "" && depositsHistory[i].articleEntity.video !=undefined){ // 视频
+                                redundantHtml += '<video class="aimg" controls><source src="'+depositsHistory[i].articleEntity.video+'" type="video/mp4"></video>';
+                            }
                          redundantHtml += '<p class="record_sum1"><span >'+depositsHistory[i].articleEntity.createTime+'</span></p>';
                          redundantHtml += '<p class="record_sum"><span><span id="funnyspan'+i+'">'+depositsHistory[i].articleEntity.funny+'</span><i title="搞笑"class="smile" onclick="simle('+depositsHistory[i].articleEntity.id+','+i+')"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><em>'+depositsHistory[i].articleEntity.comment+'</em><i data-number='+i+' data-id='+depositsHistory[i].articleEntity.id+' title="评论" class="comment"></i></span></p>';
                          redundantHtml +='<div class="kong"></div>';
@@ -49,7 +52,7 @@ $(function(){
                 $('.comment').click(function(){
                     var id = $(this).data('id');//id
                     $.ajax({
-                        url: domain_name_url + "/comment/getComment",
+                        url: domain_name_url + "/drawback/comment/getComment",
                         type: "GET",
                         dataType: "json", //指定服务器返回的数据类型
                         data: {
@@ -96,7 +99,7 @@ $(function(){
 
                 $('.record_plan').click(function(){
                     var id = $(this).data('id');//id
-                    window.location.href=domain_name_url + "/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
+                    window.location.href=domain_name_url + "/drawback/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
                 })
 
             }else{
@@ -116,7 +119,7 @@ $(function(){
 
 function simle(articleId,i) {
     $.ajax({
-        url: domain_name_url + "/article/updateArticleFunny",
+        url: domain_name_url + "/drawback/article/updateArticleFunny",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -152,7 +155,7 @@ function saveComment(id) {
         return;
     }
     $.ajax({
-        url: domain_name_url + "/comment/saveComment",
+        url: domain_name_url + "/drawback/comment/saveComment",
         type: "POST",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -180,23 +183,23 @@ function saveComment(id) {
 }
 
 function lookComment(id){
-    window.location.href=domain_name_url + "/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
+    window.location.href=domain_name_url + "/drawback/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
 };
 
 $("#home").click(function () {
-    window.location.href=domain_name_url + "/main?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/main?sessionId="+sessionId;
 });
 
 $("#min").click(function () {
-    window.location.href=domain_name_url + "/min?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/min?sessionId="+sessionId;
 });
 
 $("#center").click(function () {
-    window.location.href=domain_name_url + "/goCenter?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/goCenter?sessionId="+sessionId;
 });
 
 $("#check").click(function () {
-    window.location.href=domain_name_url + "/checkReceipt?sessionId="+sessionId;
+    window.location.href=domain_name_url + "/drawback/checkReceipt?sessionId="+sessionId;
 });
 
 $("#withdrawal_time").click(function () {
@@ -215,7 +218,7 @@ $("#withdrawal_redu").click(function () {
 function articleList(order) {
     // 历史记录
     $.ajax({
-        url:  domain_name_url + "/article/getArticle",
+        url:  domain_name_url + "/drawback/article/getArticle",
         type: "GET",
         dataType: "json", //指定服务器返回的数据类型
         data: {
@@ -252,7 +255,7 @@ function articleList(order) {
                 $('.comment').click(function(){
                     var id = $(this).data('id');//id
                     $.ajax({
-                        url: domain_name_url + "/comment/getComment",
+                        url: domain_name_url + "/drawback/comment/getComment",
                         type: "GET",
                         dataType: "json", //指定服务器返回的数据类型
                         data: {
@@ -299,7 +302,7 @@ function articleList(order) {
 
                 $('.record_plan').click(function(){
                     var id = $(this).data('id');//id
-                    window.location.href=domain_name_url + "/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
+                    window.location.href=domain_name_url + "/drawback/receiptDetaile?sessionId="+sessionId+"&articleId="+id;
                 })
 
             }else{

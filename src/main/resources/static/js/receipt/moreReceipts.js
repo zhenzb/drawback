@@ -3,7 +3,7 @@
 window.jsel = JSONSelect;
 $(function(){
     $.ajax({
-        url:  domain_name_url + "/receipts",
+        url:  domain_name_url + "/drawback/receipts",
         type: "GET",
         dataType: "jsonp", //指定服务器返回的数据类型
         data: {
@@ -70,7 +70,7 @@ $(function(){
                     var gurl = window.location.href;
 
                     localStorage.setItem('gurl', window.location.href);
-                    location.href = 'receiptsQuery.jsp?spuId=' + uri +'&url=' + gurl ;
+                    location.href = '/drawback/receiptsQuery.jsp?spuId=' + uri +'&url=' + gurl ;
                 })
 
             }
@@ -94,7 +94,7 @@ $(function(){
 
         $(document).on("click", ".warm_login", function(){
             $.ajax({
-                url:  domain_name_url + "/receipts",
+                url:  domain_name_url + "/drawback/receipts",
                 type: "GET",
                 dataType: "jsonp", //指定服务器返回的数据类型
                 data: {

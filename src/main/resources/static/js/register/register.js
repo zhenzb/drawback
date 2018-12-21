@@ -88,7 +88,7 @@
 		}
 		/*调用获取验证码接口*/
 		$.ajax({
-			url: domain_name_url + "/user/getNewVerificationCodeOptimize",
+			url: domain_name_url + "/drawback/user/getNewVerificationCodeOptimize",
 			type: "GET",
 			dataType: "json", //指定服务器返回的数据类型
 			data: data,
@@ -131,9 +131,9 @@
 	$('.register_cond p img').click(function(){
 		var test1 = document.getElementById('test1');
         if(test1.src.indexOf('registernoc') >= 0){
-            test1.src="../image/mine/registerc.png";
+            test1.src="/drawback/image/mine/registerc.png";
         }else{
-            test1.src="../image/mine/registernoc.png";
+            test1.src="/drawback/image/mine/registernoc.png";
         }
 		
 	})
@@ -184,7 +184,7 @@
 			return false;
         }
 		$.ajax({
-			url: domain_name_url + "/user/addNewUserOptimize",
+			url: domain_name_url + "/drawback/user/addNewUserOptimize",
 			type: "POST",
 			dataType: "json", //指定服务器返回的数据类型
 			data: {
@@ -203,7 +203,7 @@
 						skin: 'msg',
 						time: 2 //2秒后自动关闭
 					});
-					 setTimeout("location.href=domain_name_url+'/goLogin'", 1000);
+					 setTimeout("location.href=domain_name_url+'/drawback/goLogin'", 1000);
 
 				} else if(da_success == 2){//短信验证码错误
 					layer.open({
@@ -223,4 +223,4 @@
 			}
 		})	
 	})
-})
+});

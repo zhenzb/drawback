@@ -71,13 +71,29 @@ public class UploadImageCommon {
                             realFileName = sdf1.format(date);
                             fileName = item.getName();
                             files = item;
+                            extName = fileName.substring(fileName.lastIndexOf("."));//.jpg
+                            String base = httpUserImageUrl+realFileName + extName;
+                            if(!"".equals(realFileName)){
+                                map.put("img", base);
+                            }
+                        }
+                        if ("videoFile".equals(fieldName)) {
+                            // 上传文件命名
+                            realFileName = sdf1.format(date);
+                            fileName = item.getName();
+                            files = item;
+                            extName = fileName.substring(fileName.lastIndexOf("."));//.mp4
+                            String base = httpUserImageUrl+realFileName + extName;
+                            if(!"".equals(realFileName)){
+                                map.put("video", base);
+
+                            }
                         }
                     }
                     //上传文件
                     if (files == null) {
 
                     } else {
-
                         try {
                             extName = fileName.substring(fileName.lastIndexOf("."));//.jpg
                             // 文件后缀名字
@@ -90,7 +106,6 @@ public class UploadImageCommon {
                             while ((rc = in.read(buff)) > 0) {
                                 ops.write(buff, 0, rc);
                             }
-
                             ops.close();
                             in.close();
                         } catch (IOException e) {
@@ -100,10 +115,7 @@ public class UploadImageCommon {
                 }
             }
             //String base = realFileName + extName;
-            String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/upload/image/" + realFileName + extName;
-            if(!"".equals(realFileName)){
-                map.put("img", base);
-            }
+            //String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/upload/image/" + realFileName + extName;
             map.put("article",article);
             map.put("sessionId",sessionId);
         }catch (Exception e){
