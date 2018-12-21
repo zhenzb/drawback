@@ -144,14 +144,22 @@ function agree(articleId,i) {
             sessionId:sessionId
         },
         success:function (data) {
-            layer.open({
-                content: '审核已通过',
-                skin: 'msg',
-                time: 2
-            });
-            setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
-                window.location.reload();//页面刷新
-            },2000);
+            if (data.code == 1) {
+                layer.open({
+                    content:data.result,
+                    skin: 'msg',
+                    time: 2
+                });
+            } else {
+                layer.open({
+                    content: '审核已通过',
+                    skin: 'msg',
+                    time: 2
+                });
+                setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
+                    window.location.reload();//页面刷新
+                }, 2000);
+            }
         }
     })
 }
@@ -168,14 +176,22 @@ function refuse(id) {
             sessionId:sessionId
         },
         success:function (data) {
+            if (data.code == 1) {
+                layer.open({
+                    content: data.result,
+                    skin: 'msg',
+                    time: 2
+                });
+            } else {
                 layer.open({
                     content: '已拒绝',
                     skin: 'msg',
                     time: 2
                 });
-                setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                setTimeout(function () {  //使用  setTimeout（）方法设定定时2000毫秒
                     window.location.reload();//页面刷新
-                },2000);
+                }, 2000);
+            }
         }
     })
 }

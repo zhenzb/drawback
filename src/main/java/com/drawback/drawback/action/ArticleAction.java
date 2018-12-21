@@ -7,6 +7,7 @@ import com.drawback.drawback.commom.ResultCommon;
 import com.drawback.drawback.commom.UploadImageCommon;
 import com.drawback.drawback.commom.UserSession;
 import com.drawback.drawback.model.UserEntity;
+import com.drawback.drawback.model.ViewInfo;
 import com.drawback.drawback.model.WalletEntity;
 import com.drawback.drawback.service.ArticleService;
 import com.drawback.drawback.service.WalletService;
@@ -123,6 +124,11 @@ public class ArticleAction {
         response.setHeader("Access-Control-Allow-Origin", "*");
         ResultCommon resultCommon = new ResultCommon();
         UserEntity user = UserSession.getUser(sessionId);
+        List<ViewInfo> articleDetaile = articleService.findArticleDetaile(Integer.valueOf(articleId));
+        int userId = articleDetaile.get(0).getArticleEntity().getUserId();
+        if(user.getId()==userId){
+            return resultCommon.faile("自己不能审核自己的，赶快叫朋友帮审核");
+        }
         int i = articleService.updateArticleStatus(Integer.valueOf(articleId),Integer.valueOf(status));
         WalletEntity userWallet = walletService.getUserWallet(user.getId());
         int money = userWallet.getMoney()+5;

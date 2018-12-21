@@ -151,3 +151,17 @@ function uploadHeadImg() {
         });
     }
 }
+
+$("#strategy").click(function () {
+    layer.open({
+        type:1,
+        content:$('.warm').html(),
+        anim:'up',
+        scrollbar:false,
+        shadeClose:false,
+        style:'position:fixed;bottom:50%;left:0%;right8%;height:auto;border:none;border-radius:6px'
+    });
+    $(document).on("click",".warm_cancel",function () {
+        layer.closeAll('page');
+    });
+});

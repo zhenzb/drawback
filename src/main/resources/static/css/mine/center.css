@@ -42,7 +42,7 @@
 }
 
 .copy{
-	width: .64rem;
+	width: .74rem;
 	height: .32rem;
 	border:.01rem solid #333;
 	border-radius: .04rem;
@@ -120,4 +120,32 @@
 	font-size: .26rem;
 	color: #666;
 	margin-top: .12rem;
+}
+.warm_title{
+	margin:0;
+	border-bottom: .01rem solid #ebebeb;
+}
+.warm_title h4{
+	margin: 0;
+	font-size: .3rem;
+	color: #333;
+	margin-top: .34rem;
+}
+.warm_title p{
+	margin: 0;
+	font-size: .27rem;
+	color: #666;
+	margin-bottom: .34rem;
+}
+.warm_choose a{
+	display: inline-block;
+	width: 100%;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	text-align: center;
+	font-size: .32rem;
+}
+.warm_cancel{
+	color:#666;
+	float:contour;
 }

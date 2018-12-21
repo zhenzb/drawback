@@ -27,7 +27,7 @@ $(".first_a").click(function () {
 
 $("#wit_btn").click(function () {
     layer.open({
-        content: '2019-1-1 00:00:00 开放提现',
+        content: '最小提现金额10元起',
         skin: 'msg',
         time: 2
     });
