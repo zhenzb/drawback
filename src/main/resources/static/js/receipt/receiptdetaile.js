@@ -132,6 +132,39 @@ function saveComment(id) {
         success:function (data) {
             var v = data.result;
             if(v==0){
+                $(".commenClass").val("");
+
+                $.ajax({
+                    url: domain_name_url + "/drawback/comment/getComment",
+                    type: "GET",
+                    dataType: "json", //指定服务器返回的数据类型
+                    data: {
+                        articleId:id
+                    },
+                    success:function (data) {
+                        var commentArray = data.result;
+
+                        if(commentArray !=undefined ){
+                                var commentHtml2="";
+                                commentHtml2 +='<textarea class="commenClass"></textarea><button data-id='+id+' type="button" onclick="saveComment('+id+')" class="criticism">评论</button>';
+                                for (var i = 0; i < commentArray.length; i++) {
+                                    commentHtml2 += '<ul><li><div class="mess_left"><img src="'+commentArray[i].userEntity.headImage+'"></div>';
+                                    commentHtml2 += '<div class="mess_right"><p class="mess_title"><i>' + commentArray[i].userEntity.userName + ':</i>' + commentArray[i].commentEntity.comment + '</p><p class="mess_time">' + commentArray[i].commentEntity.createTime + '</p></div>';
+                                    commentHtml2 += '</li></ul>';
+                                }
+                                $('.record_frame ').html(commentHtml2);
+                        }else {
+                            var commentHtml3="";
+                            commentHtml3 +='<textarea class="commenClass"></textarea><button data-id='+id+' type="button" onclick="saveComment('+id+')" class="criticism">评论</button>';
+                            $('.record_frame ').html(commentHtml3);
+                        }
+
+                    }
+                });
+                var number = $(this).data('number');
+                var a = $(".receipt_li"+number), b = $(".record_frame");
+                // $('.record_frame').toggle();
+                a.append(b);
                 layer.open({
                     content: '评论成功',
                     skin: 'msg',

@@ -1,4 +1,19 @@
-﻿
+﻿// 轮播图
+var swiper = new Swiper('.swiper-container', {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    observer: true, //调完接口不能翻页解决方法，修改swiper自己或子元素时，自动初始化swiper
+    observeParents: true, //调完接口不能翻页解决方法，修改swiper的父元素时，自动初始化swiper
+
+});
 // 小票查询
 window.jsel = JSONSelect;
     // 页面进来还没有查询信息的时候要根据里一个接口里面进行判断
@@ -166,6 +181,52 @@ function saveComment(id) {
         success:function (data) {
             var v = data.code;
             if(v==0){
+                $(".commenClass").val("");
+                $.ajax({
+                    url: domain_name_url + "/drawback/comment/getComment",
+                    type: "GET",
+                    dataType: "json", //指定服务器返回的数据类型
+                    data: {
+                        articleId:id
+                    },
+                    success:function (data) {
+                        var commentArray = data.result;
+
+                        if(commentArray !=undefined ){
+
+                            if(commentArray.length>3){
+                                var commentHtml="";
+                                commentHtml +='<textarea class="commenClass"></textarea><button data-id='+id+' type="button" onclick="saveComment('+id+')" class="criticism">评论</button>';
+                                for (var i = 0; i < 3; i++) {
+                                    commentHtml += '<ul><li><div class="mess_left"><img src="'+commentArray[i].userEntity.headImage+'"></div>';
+                                    commentHtml += '<div class="mess_right"><p class="mess_title"><i>' + commentArray[i].userEntity.userName + ':</i>' + commentArray[i].commentEntity.comment + '</p><p class="mess_time">' + commentArray[i].commentEntity.createTime + '</p></div>';
+                                    commentHtml += '</li></ul>';
+                                }
+                                commentHtml += '<div class="mess_right"><p onclick="lookComment('+id+')"  class="mess_comment">点击查看全部评论</p></div>';
+                                $('.record_frame ').html(commentHtml);
+                            }else {
+                                var commentHtml2="";
+                                commentHtml2 +='<textarea class="commenClass"></textarea><button data-id='+id+' type="button" onclick="saveComment('+id+')" class="criticism">评论</button>';
+                                for (var i = 0; i < commentArray.length; i++) {
+                                    commentHtml2 += '<ul><li><div class="mess_left"><img src="'+commentArray[i].userEntity.headImage+'"></div>';
+                                    commentHtml2 += '<div class="mess_right"><p class="mess_title"><i>' + commentArray[i].userEntity.userName + ':</i>' + commentArray[i].commentEntity.comment + '</p><p class="mess_time">' + commentArray[i].commentEntity.createTime + '</p></div>';
+                                    commentHtml2 += '</li></ul>';
+                                }
+                                $('.record_frame ').html(commentHtml2);
+                            }
+                        }else {
+                            var commentHtml3="";
+                            commentHtml3 +='<textarea class="commenClass"></textarea><button data-id='+id+' type="button" onclick="saveComment('+id+')" class="criticism">评论</button>';
+                            $('.record_frame ').html(commentHtml3);
+                        }
+
+                    }
+                });
+                var number = $(this).data('number');
+                var a = $(".receipt_li"+number), b = $(".record_frame");
+               // $('.record_frame').toggle();
+                a.append(b);
+
                 layer.open({
                     content: '评论成功',
                     skin: 'msg',

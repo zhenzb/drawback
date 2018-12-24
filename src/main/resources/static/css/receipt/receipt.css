@@ -68,7 +68,7 @@ img{
     height: auto;
     border-bottom: 0.01rem solid #ebebeb;
     display: none;
-    background: #ffd52b;
+    /*background: #ffd52b;*/
     position: fixed;
     top:0;
     left: 0;
@@ -83,6 +83,7 @@ img{
     height: 0.80rem;
     background-color: #FFFFFF;
     overflow: hidden;
+    position: relative;
 }
 .discountgoods_title li {
     width: 25%;
@@ -91,8 +92,9 @@ img{
     float: left;
     /*background-color: #FFFFFF;*/
     text-align: center;
-    position: relative;
+
 }
+
 .synthesize{
     width: 0.24rem;
     height: 0.26rem;
@@ -141,22 +143,19 @@ img{
 }
 .salesHome{
     font-size: 0.26rem;
-    color: #333333;
+    color: #eb7350;
 }
 .salesMin{
     font-size: 0.26rem;
     color: #333333;
-    background: #ffc09f;
 }
 .salesCheck{
     font-size: 0.26rem;
     color: #333333;
-    background: #ffc09f;
 }
 .salesCenter{
     font-size: 0.26rem;
     color: #333333;
-    background: #ffc09f;
 }
 .price a{
     font-size: 0.22rem;
@@ -188,7 +187,7 @@ img{
     border-radius: .08rem;
 }
 .withdrawal_record{
-    margin-top: 1rem;
+    margin-top: 2.5rem;
 }
 .withdrawal_record li{
     overflow: hidden;
@@ -387,4 +386,26 @@ img{
     background-image: url(../../image/receipt/comment.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
+}
+
+/*轮播图*/
+.lunbo{
+    width: 100%;
+    height: 1.5rem;
+}
+/*分界线*/
+.mid_line {
+    width: .02rem;
+    height: .36rem;
+    background: #ebebeb;
+    position: absolute;
+    z-index: 1000;
+    left: 25%;
+    bottom: 23%;
+}
+.min_line{
+    left: 50%;
+}
+.check_line{
+    left: 75%;
 }

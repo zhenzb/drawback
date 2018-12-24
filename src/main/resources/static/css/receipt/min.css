@@ -141,22 +141,22 @@ img{
 .salesHome{
     font-size: 0.26rem;
     color: #333333;
-    background: #ffc09f;
+    /*background: #ffc09f;*/
 }
 .salesMin{
     font-size: 0.26rem;
-    color: #333333;
+    color: #eb7350;
 
 }
 .salesCheck{
     font-size: 0.26rem;
     color: #333333;
-    background: #ffc09f;
+   /* background: #ffc09f;*/
 }
 .salesCenter{
     font-size: 0.26rem;
     color: #333333;
-    background: #ffc09f;
+    /*background: #ffc09f;*/
 }
 .price a{
     font-size: 0.22rem;
@@ -400,4 +400,30 @@ img{
     background-image: url(../../image/receipt/comment.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
+}
+
+.discountgoods_title li {
+    width: 25%;
+    height: 0.80rem;
+    line-height: 0.80rem;
+    float: left;
+    /* background-color: #FFFFFF; */
+    text-align: center;
+}
+
+/*分界线*/
+.mid_line {
+    width: .02rem;
+    height: .36rem;
+    background: #ebebeb;
+    position: absolute;
+    z-index: 1000;
+    left: 25%;
+    bottom: 23%;
+}
+.min_line{
+    left: 50%;
+}
+.check_line{
+    left: 75%;
 }

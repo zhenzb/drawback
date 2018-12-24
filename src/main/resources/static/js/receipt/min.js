@@ -142,15 +142,19 @@ function simle(articleId,i) {
     })
 }
 
-
+var flg = true;
 $("#publish").click(function () {
+    if(!flg){
+        return;
+    }
+    flg = false;
     var formData = new FormData();
     var img_file = document.getElementById("image");
     var video_file = "";//document.getElementById("video");
-    var fileObject = img_file.files[0];
+    var fileObject = undefined;//img_file.files[0];
     var videoObject = video_file.files[0];
     var article = $(".commenClass").val();
-    if (fileObject == undefined && article == '' && videoObject == undefined) {
+    if (fileObject == undefined && article == '' && videoObject == "") {
         layer.open({
             content: '说点什么在发表吧...',
             skin: 'msg',
@@ -160,7 +164,7 @@ $("#publish").click(function () {
     }
     var regu = "^[ ]+$";
     var re = new RegExp(regu);
-    if (fileObject == undefined && re.test(article) && videoObject == undefined) {
+    if (fileObject == undefined && re.test(article) && videoObject == "") {
         layer.open({
             content: '说点什么在发表吧...',
             skin: 'msg',
@@ -168,7 +172,7 @@ $("#publish").click(function () {
         });
         return;
     }
-    if (videoObject == undefined) {
+    if (videoObject == "") {
 
         if (fileObject != undefined) {
             if (fileObject.size > 1024 * 1024) {//大于1M，进行压缩上传
@@ -300,7 +304,6 @@ $("#publish").click(function () {
             }
         });
     }
-
 });
 /*跳转*/
 $("#home").click(function () {

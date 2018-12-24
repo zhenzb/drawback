@@ -19,33 +19,38 @@
     <script type="text/javascript" src="/drawback/assets/layer_mobile/layer.js"></script>
     <script type="text/javascript" src="/drawback/assets/js/font-size.js"></script>
     <script type="text/javascript" src="/drawback/assets/js/jsonselect.js"></script>
+    <script type="text/javascript" src="/drawback/assets/js/swiper.min.js"></script>
+    <link rel="stylesheet" href="/drawback/assets/css/swiper.min.css"/>
     <title>趣点</title>
 </head>
 <body style="background:#fff;">
 <div class="main">
     <div class="main_bot">
-        <!--<div class="wx_sum">
-           &lt;!&ndash; <p>
-                <input type="text" id="demo1" placeholder="请输入“小票号”进行查询" value="" />
-            </p>
-            <button type="button" id="query">查询</button>&ndash;&gt;
-            <a href="">热度</a>
-            <a href="">时间</a>
-            <a href="">审核</a>
-        </div>-->
     </div>
-    <!-- 没有查询记录时显示的内容 -->
-    <!--<div class="without">
-        <p class="wit_condition">还没有趣事</p>
-        <p class="wit_service">。。。空空如也。。。</p>
-    </div>-->
-    <!-- 查询记录时已有的历史记录 -->
+    <!-- 所以说说 -->
     <diV class="exist">
         <div class="discountgoods_title">
+            <div class="swiper-container" id="lunboIdOut">
+                <div class="swiper-wrapper" id="lunboIdIn">
+                    <div class="swiper-slide">
+                        <img class="lunbo" src="/drawback/image/mine/banner1.png" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img class="lunbo" src="/drawback/image/mine/banner2.png" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <img class="lunbo" src="/drawback/image/mine/banner3.png" alt="">
+                    </div>
+                </div>
+                <div class="swiper-pagination "></div>
+            </div>
             <ul>
                 <li id="home" class="salesHome">热点趣事</li>
+                <div class="mid_line"></div>
                 <li id="min" class="salesMin">我的趣事</li>
+                <div class="mid_line min_line"></div>
                 <li id="check" class="salesCheck">我来审核</li>
+                <div class="mid_line check_line"></div>
                 <li id="center" class="salesCenter">个人中心</li>
             </ul>
         </div>
@@ -66,6 +71,8 @@
 </div>
 </body>
 <script type="text/javascript"  src="/drawback/js/receipt/receipt.js"></script>
+<script type="text/javascript" src="/drawback/assets/js/clipboard.min.js"></script>
+<!--<script type="text/javascript" src="/drawback/js/mine/center.js"></script>-->
 <script th:inline="javascript">
     /*<![CDATA[*/
     var sessionId = [[${sessionId}]];
